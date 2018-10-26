@@ -53,3 +53,14 @@ def isNuGetPackagePublished(Map parameters = [:]) {
 
   return packageMetadataResponse.status == 200;
 }
+
+def getPackageVersionFromCSProjFile(Map parameters = [:]) {
+  def fileName = parameters.fileName;
+
+  def fileContent = readFile(fileName);
+  def parsedXML = new XmlSlurper().parseText(fileContent);
+
+  def version = parsedXML.PropertyGroup.Version;
+
+  return version;
+}
