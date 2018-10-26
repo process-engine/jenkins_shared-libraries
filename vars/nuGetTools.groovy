@@ -62,5 +62,5 @@ def getPackageVersionFromCSProjFile(Map parameters = [:]) {
 
   def version = parsedXML.PropertyGroup.Version;
 
-  return version;
+  return version.text();
 }
