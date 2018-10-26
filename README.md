@@ -83,6 +83,33 @@ This will check if the package `ProcessEngine.Runtime`, version `3.8.2-pre1`
 is published on the feed `process_engine_public`. Because the feed is public,
 the access token can be omitted.
 
+
+##### Getting The Package From A .csproj File
+
+This function will return the version defined in a `.csproj` file.
+
+**Synopsis:**
+
+```groovy
+script {
+  def packageVersion = nuGetTools.isNuGetPackagePublished(
+    fileName: "<Path to .csproj File>",
+  );
+}
+```
+
+**Example Usage:**
+
+```groovy
+script {
+  def packageVersion = nuGetTools.isNuGetPackagePublished(
+    fileName: "myproject.csproj",
+  );
+}
+```
+
+This will return the version read from the `myproject.csproj` file.
+
 ### Authors/Contact Information
 
 - Paul Heidenreich <paul.heidenreich@5minds.de>
