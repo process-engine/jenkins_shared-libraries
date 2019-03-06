@@ -65,7 +65,6 @@ def getPackageVersionFromCSProjFile(Map parameters = [:]) {
   return version.text();
 }
 
-
 @NonCPS
 def setPackageVersionInXML(xml, newVersion) {
   def parsedXML = new XmlSlurper().parseText(xml);
