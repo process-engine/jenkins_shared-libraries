@@ -66,16 +66,22 @@ def getPackageVersionFromCSProjFile(Map parameters = [:]) {
 }
 
 @NonCPS
-def setPackageVersionInCSProjFile(Map parameters = [:]) {
-  def newVersion = parameters.newVersion;
-
-  def fileName = parameters.fileName;
-  def filePath = "${WORKSPACE}/${fileName}";
-
-  def parsedXML = new XmlSlurper().parse(filePath);
+def setPackageVersionInXML(rawXML, newVersion) {
+  def parsedXML = new XmlSlurper().parseText(rawXML);
 
   parsedXML.PropertyGroup.Version = newVersion;
 
-  def writer = new FileWriter(filePath);
-  groovy.xml.XmlUtil.serialize(parsedXML, writer);
+  def newRawXML = groovy.xml.XmlUtil.serialize(parsedXML);
+  return newRawXML;
+}
+
+def setPackageVersionInCSProjFile(Map parameters = [:]) {
+  def newVersion = parameters.newVersion;
+  def fileName = parameters.fileName;
+
+  def fileContent = readFile(fileName);
+
+  def newFileContent = setPackageVersionInXML(fileContent, newVersion);
+
+  writeFile(file: fileName, text: newFileContent);
 }
